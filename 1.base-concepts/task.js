@@ -19,5 +19,25 @@ function solveEquation(a, b, c) {
 }
 
 function calculateTotalMortgage(percent, contribution, amount, countMonths) {
+  const monthlyPercent = percent / 100 / 12;
   
+  const loanBody = amount - contribution;
+  
+  if (loanBody <= 0) {
+    return 0;
+  }
+  
+  const monthlyPayment = loanBody * (monthlyPercent + monthlyPercent / ((1 + monthlyPercent) ** countMonths - 1));
+  
+  const totalAmount = monthlyPayment * countMonths;
+  
+  return Number(totalAmount.toFixed(2));
 }
+
+console.log(calculateTotalMortgage(10, 0, 50000, 12));
+console.log(calculateTotalMortgage(10, 1000, 50000, 12));
+console.log(calculateTotalMortgage(10, 0, 20000, 24));
+console.log(calculateTotalMortgage(10, 1000, 20000, 24));
+console.log(calculateTotalMortgage(10, 20000, 20000, 24));
+console.log(calculateTotalMortgage(10, 0, 10000, 36));
+console.log(calculateTotalMortgage(15, 0, 10000, 36));
